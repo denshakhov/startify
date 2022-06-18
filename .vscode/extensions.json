@@ -1,0 +1,7 @@
+{
+    "recommendations": [
+        "EditorConfig.EditorConfig",
+        "Tobermory.es6-string-html",
+        "dbaeumer.vscode-eslint"
+    ]
+}

@@ -1,0 +1,20 @@
+.spinner-circle {
+    stroke-dasharray: 50;
+    stroke-dashoffset: 0;
+    animation: spinner 2s linear infinite;
+    transform-origin: center;
+}
+
+@keyframes spinner {
+    0% {
+        transform: rotate(0deg);
+        stroke-dashoffset: 50;
+    }
+    50% {
+        stroke-dashoffset: 0;
+    }
+    100% {
+        transform: rotate(360deg);
+        stroke-dashoffset: -50;
+    }
+}

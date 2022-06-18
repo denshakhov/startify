@@ -1,0 +1,25 @@
+/* List */
+.todo-list {
+    padding: 0;
+    margin: 0;
+}
+
+/* Empty List */
+.todo-empty {
+    text-align: center;
+    padding: 20px;
+}
+.todo-empty img {
+    width: 256px;
+    height: 256px;
+}
+.todo-empty .spinner {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 20px;
+    color: hsl(240, 100%, 65%);
+}
+.todo-empty div {
+    font-size: 20px;
+    color: #aaa;
+}

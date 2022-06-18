@@ -1,0 +1,28 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Server API",
+            "type": "node",
+            "request": "attach",
+            "address": "127.0.0.1",
+            "port": 9229,
+            "restart": true,
+            "localRoot": "${workspaceFolder}/server-api/src",
+            "remoteRoot": "/app/dist",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+        {
+            "name": "Debug Client WebApp",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://mywebapp.test",
+            "webRoot": "${workspaceFolder}/client-webapp/src",
+            "sourceMapPathOverrides": {
+                "webpack:///src/*": "${webRoot}/*"
+            }
+        }
+    ]
+}

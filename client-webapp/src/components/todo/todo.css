@@ -1,0 +1,24 @@
+.todo {
+    max-width: 400px;
+    box-sizing: border-box;
+    border-radius: 15px;
+    padding: 0 30px 40px;
+    margin: 0 auto;
+    background: #fff;
+    box-shadow: 0 3px 5px 0px rgba(0, 0, 0, 0.1);
+}
+
+.todo-logo {
+    text-align: center;
+    font-weight: bold;
+    font-size: 40px;
+    font-style: italic;
+    padding: 30px 20px 30px;
+}
+
+.todo-footer {
+    padding: 30px 20px;
+    text-align: center;
+    font-style: italic;
+    color: #aaa;
+}

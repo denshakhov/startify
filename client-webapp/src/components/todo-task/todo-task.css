@@ -1,0 +1,43 @@
+.todo-task {
+    --todo-task-padding: 10px;
+    height: 40px;
+    display: flex;
+    align-items: stretch;
+    list-style: none;
+    border-radius: 3px;
+}
+.todo-task:not(:last-child) {
+    margin-bottom: 10px;
+}
+.todo-task:hover {
+    background: #fafafa;
+}
+
+.todo-task__label {
+    cursor: pointer;
+    padding: var(--todo-task-padding);
+    gap: var(--todo-task-padding);
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    min-width: 0;
+}
+
+.todo-task__text {
+    flex-grow: 1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.todo-task__buttons {
+    display: flex;
+    gap: 5px;
+}
+
+/* Completed */
+.todo-task.todo-task--completed .todo-task__text {
+    text-decoration: line-through;
+    opacity: 0.3;
+}

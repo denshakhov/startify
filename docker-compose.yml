@@ -1,0 +1,73 @@
+x-app: &default-app
+  image: node:16.15
+  user: node
+  working_dir: /app
+  depends_on:
+    - storage-main
+    - postgres
+  profiles:
+    - development
+    - ci
+  environment:
+    RUN_ENV: development
+    NODE_ENV: development
+    WEBAPP_URL: http://mywebapp.test:8080
+    PORT: 3000
+    DATABASE_URL: postgres://app:password@postgres:5432/app
+    DATABASE_TESTING_URL: postgres://app:password@postgres:5432/app_testing
+  # Put your secrets (e.g. API keys) to the .env file
+  # env_file:
+  #   - .env
+
+services:
+  server-api:
+    <<: *default-app
+    container_name: startify-server-api
+    restart: on-failure
+    ports:
+      - 127.0.0.1:3000:3000
+      - 127.0.0.1:9229:9229
+    volumes:
+      - ./server-api:/app
+
+  storage-main:
+    <<: *default-app
+    container_name: startify-storage-main
+    depends_on:
+      - postgres
+    volumes:
+      - ./storage-main:/app
+
+  postgres:
+    image: postgres:14
+    container_name: startify-postgres
+    # Optimized for testing
+    command: postgres -c fsync=off -c full_page_writes=off -c synchronous_commit=off -c random_page_cost=1.1
+    profiles:
+      - development
+      - ci
+    ports:
+      - 127.0.0.1:5432:5432
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: app
+      POSTGRES_DB: app
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  nginx:
+    image: nginx:1.21
+    container_name: startify-nginx
+    profiles:
+      - development
+    depends_on:
+      - server-api
+    ports:
+      - 127.0.0.1:80:80
+    environment:
+      NGINX_HOST: mywebapp.test
+    volumes:
+      - ./infrastructure/nginx:/etc/nginx/templates
+
+volumes:
+  db-data:

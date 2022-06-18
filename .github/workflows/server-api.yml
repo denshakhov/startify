@@ -1,0 +1,104 @@
+name: Server API
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'server-api/**'
+      - 'storage-main/**'
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'server-api/**'
+      - 'storage-main/**'
+
+jobs:
+  lint_and_test:
+    name: Lint & Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: npm
+          cache-dependency-path: '**/package-lock.json'
+
+      - run: npm run api:install:ci
+
+      - run: npm run api:prettier
+      - run: npm run api:lint
+      - run: npm run api:build
+
+      - run: npm run storage:prettier
+      - run: npm run storage:lint
+      - run: npm run storage:build
+
+      - run: npm run start:ci
+      - run: npm run api:test:ci
+      - run: npm run stop:ci
+
+  build_and_deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+    needs: lint_and_test
+    if: false
+    # if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: docker/setup-buildx-action@v2
+
+      - name: Set environment variables for the production environment
+        if: github.ref == 'refs/heads/main'
+        run: echo "HEROKU_APP_NAME=${{ secrets.HEROKU_APP_NAME_PRODUCTION }}" >> $GITHUB_ENV
+
+      - name: Set environment variables for the staging environment
+        if: github.ref == 'refs/heads/develop'
+        run: echo "HEROKU_APP_NAME=${{ secrets.HEROKU_APP_NAME_STAGING }}" >> $GITHUB_ENV
+
+      - name: Login to Heroku Container registry
+        uses: docker/login-action@v2
+        with:
+          registry: registry.heroku.com
+          username: _
+          password: ${{ secrets.HEROKU_API_KEY }}
+
+      - name: Build and push the API image
+        uses: docker/build-push-action@v3
+        with:
+          context: ./server-api
+          push: true
+          target: production
+          tags: registry.heroku.com/${{ env.HEROKU_APP_NAME }}/web
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Build and push the migration image
+        uses: docker/build-push-action@v3
+        with:
+          context: ./storage-main
+          push: true
+          target: production
+          tags: registry.heroku.com/${{ env.HEROKU_APP_NAME }}/release
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Release
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: heroku container:release web release -v --app ${{ env.HEROKU_APP_NAME }}
+
+      # https://github.com/heroku/cli/issues/1271
+      - name: Get release status
+        timeout-minutes: 1
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+          function get_release_status() {
+            echo $(heroku releases --json -n 1 --app ${{ env.HEROKU_APP_NAME }} | jq -r '.[0].status')
+          }
+
+          while [[ $(get_release_status) == "pending" ]]; do sleep 1; echo "pending..."; done
+          [[ $(get_release_status) == "succeeded" ]]

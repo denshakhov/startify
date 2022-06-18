@@ -1,0 +1,67 @@
+{
+    "name": "startify",
+    "private": true,
+    "version": "1.0.0",
+    "engines": {
+        "node": ">=16"
+    },
+    "scripts": {
+        "setup": "npm install && husky install && npm install --prefix server-api && npm install --prefix storage-main && npm install --prefix client-webapp",
+        "start": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml --profile development up --remove-orphans -d",
+        "stop": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml --profile development down",
+        "start:ci": "docker-compose -f docker-compose.yml -f docker-compose.ci.yml --profile ci up --remove-orphans -d",
+        "stop:ci": "docker-compose -f docker-compose.yml -f docker-compose.ci.yml --profile ci down",
+
+        "webapp:install:ci": "npm ci --ignore-scripts && npm ci --prefix client-webapp",
+        "webapp:test": "npm run test --prefix client-webapp",
+        "webapp:prettier": "prettier --check ./client-webapp/src",
+        "webapp:prettier:fix": "prettier --write ./client-webapp/src",
+        "webapp:lint": "eslint \"./client-webapp/src/**/*.{ts,tsx}\"",
+        "webapp:start": "npm run start --prefix client-webapp",
+        "webapp:build": "npm run build --prefix client-webapp",
+        "webapp:build:dev": "npm run build:dev --prefix client-webapp",
+        "webapp:watch": "docker-compose logs -f --no-log-prefix client-webapp",
+
+        "api:install:ci": "npm ci --ignore-scripts && npm ci --prefix server-api && npm ci --prefix storage-main",
+        "api:test": "npm run api:test:unit && npm run api:test:int",
+        "api:test:int": "docker-compose exec storage-main npm run test:setup && docker-compose exec server-api npm run test:int && docker-compose exec storage-main npm run test:teardown",
+        "api:test:unit": "docker-compose exec server-api npm run test:unit",
+        "api:test:ci": "docker-compose exec -T server-api npm run test:unit && docker-compose exec -T server-api npm run test:int",
+        "api:prettier": "prettier --check ./server-api/src",
+        "api:prettier:fix": "prettier --write ./server-api/src",
+        "api:lint": "eslint \"./server-api/src/**/*.ts\"",
+        "api:build": "npm run build --prefix server-api",
+        "api:build:dev": "npm run build:dev --prefix server-api",
+        "api:watch": "npm run watch --prefix server-api",
+        "api:ssh": "npm run ssh --prefix server-api",
+        "api:logs": "npm run logs --prefix server-api",
+
+        "storage:migrate:latest": "docker-compose exec storage-main npm run migrate:latest",
+        "storage:migrate:up": "docker-compose exec storage-main npm run migrate:up",
+        "storage:migrate:down": "docker-compose exec storage-main npm run migrate:down",
+        "storage:prettier": "prettier --check ./storage-main/src",
+        "storage:prettier:fix": "prettier --write ./storage-main/src",
+        "storage:lint": "eslint \"./storage-main/src/**/*.ts\"",
+        "storage:build": "npm run build --prefix storage-main",
+        "storage:watch": "npm run watch --prefix storage-main",
+        "storage:psql": "npm run psql --prefix storage-main",
+        "storage:ssh": "npm run ssh --prefix storage-main",
+
+        "all:prettier": "prettier --check \"./{server,client,storage}-*/src/**/*\"",
+        "all:prettier:fix": "prettier --write \"./{server,client,storage}-*/src/**/*\"",
+        "all:lint": "eslint \"./{server,client,storage}-*/src/**/*.{ts,tsx}\"",
+        "all:build": "npm run build --prefix server-api && npm run build --prefix storage-main",
+        "all:build:dev": "npm run build:dev --prefix server-api && npm run build:dev --prefix storage-main",
+        "all:watch": "concurrently -r -n server-api,storage-main -c \"yellow.bold,blue.bold,green.bold\" \"npm:watch --prefix server-api\" \"npm:watch --prefix storage-main\""
+    },
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^5.21.0",
+        "@typescript-eslint/parser": "^5.21.0",
+        "concurrently": "^7.1.0",
+        "eslint": "^8.14.0",
+        "eslint-config-prettier": "^8.5.0",
+        "husky": "^7.0.4",
+        "lint-staged": "^12.4.1",
+        "prettier": "^2.6.2"
+    }
+}

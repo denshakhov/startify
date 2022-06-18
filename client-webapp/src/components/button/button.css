@@ -1,0 +1,83 @@
+.button {
+    padding: 0 9px;
+    position: relative;
+    color: #fff;
+    background: hsl(190, 30%, 60%);
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
+    transition: box-shadow 0.15s ease, background-color 0.1s;
+}
+.button:focus {
+    box-shadow: var(--focus-shadow);
+    outline: none;
+    background: hsl(190, 30%, 55%);
+}
+.button:active {
+    background: hsl(190, 30%, 40%);
+}
+.button:disabled {
+    background: hsl(190, 30%, 75%);
+}
+
+.button .spinner {
+    --size: 24px;
+    display: none;
+    width: var(--size);
+    height: var(--size);
+    position: absolute;
+    top: calc(50% - var(--size) / 2);
+    left: calc(50% - var(--size) / 2);
+    color: #fff;
+}
+
+.button svg {
+    display: block;
+    width: 24px;
+    height: 24px;
+}
+
+/* Transparent */
+.button.button--transparent {
+    color: #99f;
+    background: transparent;
+}
+.button.button--transparent:hover {
+    background: transparent;
+}
+.button.button--transparent:active {
+    background: transparent;
+}
+.button.button--transparent:disabled {
+    background: transparent;
+    opacity: 0.5;
+}
+
+/* Primary */
+.button.button--primary {
+    color: #fff;
+    background: hsl(240, 100%, 65%);
+}
+.button.button--primary:hover {
+    background: hsl(240, 100%, 55%);
+}
+.button.button--primary:active {
+    background: hsl(240, 100%, 40%);
+}
+.button.button--primary:disabled {
+    background: hsl(240, 100%, 75%);
+}
+
+/* Small */
+.button.button--small {
+    padding: 0 5px;
+}
+
+/* Loading */
+.button--loading .button__text,
+.button--loading svg:not(.spinner) {
+    visibility: hidden;
+}
+.button--loading .spinner {
+    display: block;
+}

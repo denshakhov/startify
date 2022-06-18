@@ -1,0 +1,8 @@
+# Merged with ./docker-compose.yml
+services:
+  server-api:
+    command: /app/node_modules/.bin/nodemon --legacy-watch --watch dist dist/main.js
+    # command: /app/node_modules/.bin/nodemon --inspect=0.0.0.0:9229 --legacy-watch --watch dist dist/main.js
+
+  storage-main:
+    command: npm run migrate:latest:dev

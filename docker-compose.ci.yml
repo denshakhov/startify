@@ -1,0 +1,20 @@
+# Merged with ./docker-compose.yml
+services:
+  server-api:
+    depends_on:
+      storage-main:
+        condition: service_completed_successfully
+      postgres:
+        condition: service_started
+    # There is no need to start the app in the ci environment,
+    # but we need to keep the container running to run the tests
+    command: sleep infinity
+    environment:
+      RUN_ENV: ci
+      NODE_ENV: production
+
+  storage-main:
+    command: npm run test:setup
+    environment:
+      RUN_ENV: ci
+      NODE_ENV: production

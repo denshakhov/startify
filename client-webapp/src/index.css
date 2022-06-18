@@ -1,0 +1,22 @@
+:root {
+    --font-size: 15px;
+    --font-family: 'Segoe UI', 'Roboto', 'Ubuntu', sans-serif;
+    --focus-shadow: 0 0 0 3px #c0c5ff;
+}
+
+body {
+    margin: 0;
+    padding: 50px 10px;
+    color: #333;
+    background: #eee;
+    font-size: var(--font-size);
+    font-family: var(--font-family);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+input,
+button {
+    font-size: var(--font-size);
+    font-family: var(--font-family);
+}

@@ -1,0 +1,35 @@
+.todo-form {
+    display: flex;
+    align-items: stretch;
+    gap: 5px;
+    box-sizing: border-box;
+    height: 40px;
+}
+
+.todo-form input[type='text'] {
+    flex-grow: 1;
+    padding: 0 15px;
+    border: none;
+    background: #f0f0fa;
+    border-radius: 3px;
+    transition: box-shadow 0.15s ease;
+    min-width: 0;
+}
+.todo-form input[type='text']:focus {
+    outline: none;
+    box-shadow: var(--focus-shadow);
+}
+
+.todo-form input[type='text']::placeholder {
+    color: #9797cb;
+}
+
+/* Create form */
+.todo-form:not(.todo-form--editing) {
+    margin-bottom: 30px;
+}
+
+/* Editing form */
+.todo-form.todo-form--editing {
+    width: 100%;
+}

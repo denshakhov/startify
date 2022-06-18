@@ -1,0 +1,46 @@
+{
+    "name": "server-api",
+    "version": "1.0.0",
+    "private": true,
+    "main": "dist/main.js",
+    "engines": {
+        "node": ">=16"
+    },
+    "scripts": {
+        "clean": "rimraf ./dist",
+        "build": "npm run clean && tsc",
+        "build:dev": "npm run clean && tsc --inlineSourceMap",
+        "watch": "tsc -w --preserveWatchOutput --inlineSourceMap",
+        "docker:build": "DOCKER_BUILDKIT=1 docker build --target production -t startify:latest .",
+        "test": "npm run test:int && npm run test:unit",
+        "test:int": "RUN_ENV=ci jest --runInBand --testMatch \"<rootDir>/dist/**/*.int.test.js\"",
+        "test:unit": "jest --testMatch \"<rootDir>/dist/**/*.unit.test.js\"",
+        "test:dev": "docker-compose exec server-api npm run test",
+        "test:dev:int": "docker-compose exec server-api npm run test:int",
+        "test:dev:unit": "docker-compose exec server-api npm run test:unit",
+        "logs": "docker-compose logs -f --tail=100 --no-log-prefix server-api | npx pino-pretty -t -S",
+        "ssh": "docker-compose exec server-api /bin/bash",
+        "psql": "docker-compose exec postgres psql -U app"
+    },
+    "dependencies": {
+        "@fastify/cookie": "^7.0.0",
+        "@fastify/cors": "^8.0.0",
+        "@fastify/postgres": "^5.0.0",
+        "@fastify/type-provider-typebox": "^0.1.0",
+        "@sinclair/typebox": "^0.23.5",
+        "fastify": "^4.0.3",
+        "fastify-plugin": "^3.0.1",
+        "pg": "^8.7.3"
+    },
+    "devDependencies": {
+        "@tsconfig/node16": "^1.0.2",
+        "@types/jest": "^27.5.1",
+        "@types/node": "^17.0.35",
+        "@types/pg": "^8.6.5",
+        "jest": "^28.1.0",
+        "nodemon": "^2.0.16",
+        "pino-pretty": "^7.6.1",
+        "rimraf": "^3.0.2",
+        "typescript": "^4.6.4"
+    }
+}

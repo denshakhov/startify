@@ -1,0 +1,8 @@
+{
+    "{server,client,storage}-*/src/**/*.{ts,tsx}": [
+        "eslint"
+    ],
+    "{server,client,storage}-*/src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+        "prettier --write"
+    ]
+}

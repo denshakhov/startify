@@ -1,0 +1,30 @@
+server {
+    listen 80;
+    server_name api.${NGINX_HOST};
+    root /usr/share/nginx/html;
+    index index.html;
+
+    access_log /var/log/nginx/api.${NGINX_HOST}.access.log;
+    error_log /var/log/nginx/api.${NGINX_HOST}.error.log;
+
+    location / {
+        # The app may be not ready when nginx starts,
+        # so we put the host in the variable so nginx won't exit on start
+        set $upstream http://server-api:3000;
+        # Docker's resolver
+        resolver 127.0.0.11 valid=30s;
+
+        proxy_pass $upstream;
+        proxy_cache_bypass $http_upgrade;
+        proxy_http_version 1.1;
+
+        proxy_set_header Connection         "";
+        proxy_set_header Host				$host;
+        proxy_set_header Upgrade			$http_upgrade;
+        proxy_set_header X-Real-IP			$remote_addr;
+        proxy_set_header X-Forwarded-For	$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto	$scheme;
+        proxy_set_header X-Forwarded-Host	$host;
+        proxy_set_header X-Forwarded-Port	$server_port;
+    }
+}

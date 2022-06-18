@@ -1,0 +1,66 @@
+name: Client WebApp
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'client-webapp/**'
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'client-webapp/**'
+
+jobs:
+  lint_and_test:
+    name: Lint & Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: npm
+          cache-dependency-path: client-webapp/package-lock.json
+
+      - run: npm run webapp:install:ci
+      - run: npm run webapp:prettier
+      - run: npm run webapp:lint
+      - run: npm run webapp:test
+
+  build_and_deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+    needs: lint_and_test
+    if: false
+    # if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: npm
+          cache-dependency-path: client-webapp/package-lock.json
+
+      - run: npm run webapp:install:ci
+
+      - name: Build for the staging environment
+        if: github.ref == 'refs/heads/develop'
+        working-directory: ./client-webapp
+        run: |
+          npm run build:staging
+          echo "NETLIFY_SITE_ID=${{ secrets.NETLIFY_SITE_ID_STAGING }}" >> $GITHUB_ENV
+
+      - name: Build for the production environment
+        if: github.ref == 'refs/heads/main'
+        working-directory: ./client-webapp
+        run: |
+          npm run build:production
+          echo "NETLIFY_SITE_ID=${{ secrets.NETLIFY_SITE_ID_PRODUCTION }}" >> $GITHUB_ENV
+
+      - name: Deploy to netlify
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ env.NETLIFY_SITE_ID }}
+        run: netlify deploy --dir=client-webapp/build --prod --debug

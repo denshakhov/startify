@@ -1,0 +1,42 @@
+{
+    "root": true,
+    "env": {
+        "browser": true,
+        "node": true
+    },
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "project": [
+            "./{server,client,storage}-*/tsconfig.json"
+        ]
+    },
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "prettier"
+    ],
+    "rules": {
+        "no-case-declarations":"off",
+        "no-return-await": "off",
+        "no-useless-escape":"off",
+        "no-control-regex":"off",
+
+        "@typescript-eslint/require-await": "off",
+        "@typescript-eslint/no-unsafe-return": "off",
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/return-await": "error",
+
+        "@typescript-eslint/no-inferrable-types":"off",
+        "@typescript-eslint/no-non-null-assertion":"off",
+        "@typescript-eslint/no-unused-vars":"off",
+        "@typescript-eslint/no-explicit-any": "off"
+    },
+    "ignorePatterns": [
+        "dist",
+        "build"
+    ]
+}
