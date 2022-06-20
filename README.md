@@ -1,4 +1,4 @@
-# Startify
+<div align="center"><img src="https://user-images.githubusercontent.com/107560822/174556810-34917878-4fd2-4d40-84eb-f7ea9ee07bab.png"/></div><br>
 
 Deployable monorepo boilerplate powered by **[fastify](https://github.com/fastify/fastify)** (node.js) and **React**. Ideal for rapid prototyping and going to production as fast as possible.
 
@@ -17,7 +17,7 @@ Deployable monorepo boilerplate powered by **[fastify](https://github.com/fastif
 - Linting with `eslint`, `prettier` and `lint-staged`, pre-commit hooks with `husky`
 - [Basic Todo App ↓](#todo-app-example) to show all the features of the startify
 - Frontend Stack
-    - React ([CRA](create-react-app.dev))
+    - React ([CRA](https://create-react-app.dev))
 - Backend Stack
     - Node.js ([fastify](https://github.com/fastify/fastify))
     - TypeScript
