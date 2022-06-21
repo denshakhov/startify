@@ -1,5 +1,5 @@
 x-app: &default-app
-  image: node:16.15
+  image: node:16.15.1
   user: node
   working_dir: /app
   depends_on:
@@ -39,7 +39,7 @@ services:
       - ./storage-main:/app
 
   postgres:
-    image: postgres:14
+    image: postgres:14.3
     container_name: startify-postgres
     # Optimized for testing
     command: postgres -c fsync=off -c full_page_writes=off -c synchronous_commit=off -c random_page_cost=1.1

@@ -28,7 +28,7 @@
         "@fastify/postgres": "^5.0.0",
         "@fastify/type-provider-typebox": "^0.1.0",
         "@sinclair/typebox": "^0.23.5",
-        "fastify": "^4.0.3",
+        "fastify": "^4.1.0",
         "fastify-plugin": "^3.0.1",
         "pg": "^8.7.3"
     },
