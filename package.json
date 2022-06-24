@@ -46,6 +46,7 @@
         "storage:watch": "npm run watch --prefix storage-main",
         "storage:psql": "npm run psql --prefix storage-main",
         "storage:ssh": "npm run ssh --prefix storage-main",
+        "storage:logs": "npm run logs --prefix storage-main",
 
         "all:prettier": "prettier --check \"./{server,client,storage}-*/src/**/*\"",
         "all:prettier:fix": "prettier --write \"./{server,client,storage}-*/src/**/*\"",
