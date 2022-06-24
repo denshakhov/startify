@@ -297,6 +297,8 @@ Startify includes debugger configuration (`.vscode/launch.json`) for VS Code. In
 
 ## Todo App example
 
+![todoify](https://user-images.githubusercontent.com/107560822/175504657-7fb9abba-c982-4e00-b855-09c3b94458e7.png)
+
 To simplify development process, the example app uses modified REST API (which is similar to the JSON-RPC):
 
 - The name of the called procedure is in the url, e.g. `/tasks/create`
