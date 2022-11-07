@@ -1,4 +1,4 @@
-import { IConfig } from './config'
+import type { IConfig } from './config'
 import configDevelopment from './config.development'
 
 const config: IConfig = {

@@ -1,5 +1,5 @@
 {
-    "extends": "@tsconfig/node16/tsconfig.json",
+    "extends": "@tsconfig/node18-strictest/tsconfig.json",
     "include": [ "src/**/*" ],
     "compilerOptions": {
         "outDir": "dist",
@@ -8,8 +8,10 @@
         "removeComments": true,
         "resolveJsonModule": true,
 
-        "noImplicitOverride": true,
-        "noImplicitReturns": true,
-        "noUncheckedIndexedAccess": true
+        "noUnusedParameters": false,
+        "exactOptionalPropertyTypes": false
+    },
+    "watchOptions": {
+        "excludeDirectories": [ "node_modules", "../node_modules" ]
     }
 }

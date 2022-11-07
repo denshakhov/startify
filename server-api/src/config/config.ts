@@ -1,6 +1,6 @@
 import path from 'node:path'
-import { PoolConfig } from 'pg'
-import { FastifyServerOptions } from 'fastify'
+import type { PoolConfig } from 'pg'
+import type { FastifyServerOptions } from 'fastify'
 
 export type IConfig = {
     port: string | number

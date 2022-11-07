@@ -1,6 +1,6 @@
 import { buildApplication } from '../../../app'
-import { FastifyApp } from '../../../types'
-import { ITasksCreate } from '../tasks.schemas'
+import type { FastifyApp } from '../../../types'
+import type { ITasksCreate } from '../tasks.schemas'
 
 let fastifyApp: FastifyApp
 const nonExistentUUID = '00000000-0000-0000-0000-000000000000'

@@ -1,4 +1,4 @@
-import { Knex } from 'knex'
+import type { Knex } from 'knex'
 
 export async function up(db: Knex) {
     await db.raw(/* sql */ `

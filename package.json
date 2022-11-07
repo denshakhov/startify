@@ -20,7 +20,6 @@
         "webapp:start": "npm run start --prefix client-webapp",
         "webapp:build": "npm run build --prefix client-webapp",
         "webapp:build:dev": "npm run build:dev --prefix client-webapp",
-        "webapp:watch": "docker-compose logs -f --no-log-prefix client-webapp",
 
         "api:install:ci": "npm ci --ignore-scripts && npm ci --prefix server-api && npm ci --prefix storage-main",
         "api:test": "npm run api:test:unit && npm run api:test:int",

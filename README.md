@@ -38,7 +38,7 @@ cd myproject
 npm run setup         # Install dependencies
 npm run all:build:dev # Build all projects
 npm start             # Run docker-compose (backend services)
-npm webapp:start      # Run the WebApp (React)
+npm run webapp:start  # Run the WebApp (React)
 
 # Append to the hosts file (AS ADMIN)
 # /etc/hosts (Linux/MacOS)
@@ -141,6 +141,7 @@ graph LR
 
 ### 💲 Pricing
 
+> **⚠️** **HEROKU ANNOUNCEMENT**: Starting November 28, 2022, we plan to stop offering free product plans and plan to start shutting down free dynos and data services. [Read more](https://blog.heroku.com/next-chapter)
 > **⚠️** Additional charges may apply, make sure you don't exceed FREE plans limits.
 
 - GitHub Actions is **FREE ([Free plan](https://github.com/pricing))**, 2000 mins per months.

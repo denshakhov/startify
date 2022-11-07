@@ -7,7 +7,7 @@ async function waitForConnection(timeoutSeconds: number = 10) {
         try {
             const client = new Client({
                 ...pgConfig,
-                connectionString: process.env.DATABASE_URL,
+                connectionString: process.env['DATABASE_URL'],
             })
 
             await client.connect()

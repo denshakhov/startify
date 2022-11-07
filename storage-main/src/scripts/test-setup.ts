@@ -1,12 +1,12 @@
 import { Client } from 'pg'
 
-if (['production', 'staging'].includes(process.env.RUN_ENV!)) {
+if (['production', 'staging'].includes(process.env['RUN_ENV']!)) {
     throw new Error('The script cannot be run in production or staging environment')
 }
 
 async function setup() {
     const client = new Client({
-        connectionString: process.env.DATABASE_URL,
+        connectionString: process.env['DATABASE_URL'],
     })
 
     await client.connect()

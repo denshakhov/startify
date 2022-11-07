@@ -1,0 +1,12 @@
+{
+    "files.watcherExclude": {
+        // https://github.com/microsoft/vscode/issues/137872
+        "node_modules": true,
+        "client-webapp/node_modules": true,
+        "server-api/node_modules": true,
+        "storage-main/node_modules": true
+    },
+    "typescript.tsserver.watchOptions": {
+        "excludeDirectories": [ "**/node_modules", "../node_modules" ]
+    },
+}

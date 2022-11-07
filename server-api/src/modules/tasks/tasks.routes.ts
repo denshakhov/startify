@@ -1,16 +1,18 @@
-import { FastifyApp } from '../../types'
+import type { FastifyApp } from '../../types'
 import { TasksRepository } from './tasks.repository'
 import { tasksCreateSchema, tasksDeleteSchema, tasksGetAllSchema, tasksGetOneSchema, tasksUpdateCompletedSchema, tasksUpdateSchema } from './tasks.schemas'
+import { TasksService } from './tasks.service'
 
 export async function tasksRoutes(fastify: FastifyApp) {
     const tasksRepository = new TasksRepository(fastify.pg)
+    const tasksService = new TasksService(tasksRepository)
 
     fastify.route({
         method: 'POST',
         url: '/tasks/get-all',
         schema: tasksGetAllSchema,
         async handler() {
-            return tasksRepository.getAll()
+            return tasksService.getAll()
         },
     })
 
@@ -19,7 +21,7 @@ export async function tasksRoutes(fastify: FastifyApp) {
         url: '/tasks/get-one',
         schema: tasksGetOneSchema,
         async handler(request, reply) {
-            return (await tasksRepository.getOne(request.body)) ?? reply.callNotFound()
+            return (await tasksService.getOne(request.body)) ?? reply.callNotFound()
         },
     })
 
@@ -28,7 +30,7 @@ export async function tasksRoutes(fastify: FastifyApp) {
         url: '/tasks/create',
         schema: tasksCreateSchema,
         async handler(request) {
-            return tasksRepository.create(request.body)
+            return tasksService.create(request.body)
         },
     })
 
@@ -37,7 +39,7 @@ export async function tasksRoutes(fastify: FastifyApp) {
         url: '/tasks/update',
         schema: tasksUpdateSchema,
         async handler(request, reply) {
-            return (await tasksRepository.update(request.body)) ?? reply.callNotFound()
+            return (await tasksService.update(request.body)) ?? reply.callNotFound()
         },
     })
 
@@ -46,7 +48,7 @@ export async function tasksRoutes(fastify: FastifyApp) {
         url: '/tasks/update-completed',
         schema: tasksUpdateCompletedSchema,
         async handler(request, reply) {
-            return (await tasksRepository.updateCompleted(request.body)) > 0 ? { success: true } : reply.callNotFound()
+            return (await tasksService.updateCompleted(request.body)) > 0 ? { success: true } : reply.callNotFound()
         },
     })
 
@@ -55,7 +57,7 @@ export async function tasksRoutes(fastify: FastifyApp) {
         url: '/tasks/delete',
         schema: tasksDeleteSchema,
         async handler(request, reply) {
-            return (await tasksRepository.delete(request.body)) > 0 ? { success: true } : reply.callNotFound()
+            return (await tasksService.delete(request.body)) > 0 ? { success: true } : reply.callNotFound()
         },
     })
 }

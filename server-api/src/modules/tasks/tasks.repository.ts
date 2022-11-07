@@ -1,5 +1,5 @@
-import { PostgresDb } from '@fastify/postgres'
-import { ITasksCreate, ITasksDelete, ITasksGetAllRoute, ITasksGetOneRoute, ITasksUpdate, ITasksUpdateCompleted } from './tasks.schemas'
+import type { PostgresDb } from '@fastify/postgres'
+import type { ITasksCreate, ITasksDelete, ITasksGetAllRoute, ITasksGetOneRoute, ITasksUpdate, ITasksUpdateCompleted } from './tasks.schemas'
 
 export class TasksRepository {
     constructor(private readonly pg: PostgresDb) {}

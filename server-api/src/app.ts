@@ -6,8 +6,8 @@ import fastifyGracefulShutdown from './plugins/fastify-graceful-shutdown'
 import fastifyInternalServerError from './plugins/fastify-internal-server-error'
 import { tasksRoutes } from './modules/tasks/tasks.routes'
 import { config } from './config/config'
-import { ajvTypeBoxPlugin, TypeBoxTypeProvider } from '@fastify/type-provider-typebox'
-import { FastifyApp } from './types'
+import type { TypeBoxTypeProvider } from '@fastify/type-provider-typebox'
+import type { FastifyApp } from './types'
 
 export async function buildApplication(): Promise<FastifyApp> {
     const app = fastify({
@@ -16,7 +16,6 @@ export async function buildApplication(): Promise<FastifyApp> {
         trustProxy: true,
         disableRequestLogging: !config.requestLogging,
         ajv: {
-            plugins: [ajvTypeBoxPlugin],
             customOptions: {
                 coerceTypes: false,
                 allErrors: false,

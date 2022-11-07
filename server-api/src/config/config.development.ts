@@ -1,4 +1,4 @@
-import { IConfig } from './config'
+import type { IConfig } from './config'
 
 const config: IConfig = {
     port: process.env.PORT,

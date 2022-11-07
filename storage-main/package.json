@@ -25,14 +25,14 @@
         "psql": "docker-compose exec postgres psql -U app"
     },
     "dependencies": {
-        "knex": "^2.0.0",
-        "pg": "^8.7.3"
+        "knex": "^2.3.0",
+        "pg": "^8.8.0"
     },
     "devDependencies": {
-        "@tsconfig/node16": "^1.0.2",
-        "@types/node": "^17.0.23",
+        "@tsconfig/node18-strictest": "^1.0.0",
+        "@types/node": "^18.11.9",
         "@types/pg": "^8.6.5",
         "rimraf": "^3.0.2",
-        "typescript": "^4.6.3"
+        "typescript": "^4.8.4"
     }
 }
