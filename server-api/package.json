@@ -27,7 +27,6 @@
         "@fastify/cors": "^8.1.1",
         "@fastify/postgres": "^5.1.0",
         "@fastify/type-provider-typebox": "^2.3.0",
-        "@sinclair/typebox": "^0.25.2",
         "fastify": "^4.9.2",
         "fastify-plugin": "^4.3.0",
         "pg": "^8.8.0"
