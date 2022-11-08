@@ -1,5 +1,5 @@
 # Alpine images might have problems with native packages (it uses musl libc instead of glibc) so the slim image used instead
-ARG NODE_VERSION=16.15.1-slim
+ARG NODE_VERSION=18.12-slim
 
 # Development build
 FROM node:${NODE_VERSION} AS development

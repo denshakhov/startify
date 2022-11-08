@@ -1,4 +1,4 @@
-ARG NODE_VERSION=16.15.1-slim
+ARG NODE_VERSION=18.12.0-slim
 
 # Development build
 FROM node:${NODE_VERSION} AS development
