@@ -12,12 +12,14 @@
         "build:dev": "npm run clean && tsc --inlineSourceMap",
         "watch": "tsc -w --preserveWatchOutput --inlineSourceMap",
         "docker:build": "DOCKER_BUILDKIT=1 docker build --target production -t startify:latest .",
+
         "test": "npm run test:int && npm run test:unit",
         "test:int": "RUN_ENV=ci jest --runInBand --testMatch \"<rootDir>/dist/**/*.int.test.js\"",
         "test:unit": "jest --testMatch \"<rootDir>/dist/**/*.unit.test.js\"",
         "test:dev": "docker-compose exec server-api npm run test",
         "test:dev:int": "docker-compose exec server-api npm run test:int",
         "test:dev:unit": "docker-compose exec server-api npm run test:unit",
+
         "logs": "docker-compose logs -f --tail=100 --no-log-prefix server-api | npx pino-pretty -t -S",
         "ssh": "docker-compose exec server-api /bin/bash",
         "psql": "docker-compose exec postgres psql -U app"

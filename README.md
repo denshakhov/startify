@@ -141,7 +141,7 @@ graph LR
 
 ### 💲 Pricing
 
-> **⚠️** **HEROKU ANNOUNCEMENT**: Starting November 28, 2022, we plan to stop offering free product plans and plan to start shutting down free dynos and data services. [Read more](https://blog.heroku.com/next-chapter)
+> **⚠️** **HEROKU ANNOUNCEMENT**: Starting November 28, 2022, we plan to stop offering free product plans and plan to start shutting down free dynos and data services. [Read more](https://blog.heroku.com/next-chapter)<br>
 > **⚠️** Additional charges may apply, make sure you don't exceed FREE plans limits.
 
 - GitHub Actions is **FREE ([Free plan](https://github.com/pricing))**, 2000 mins per months.

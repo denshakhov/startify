@@ -1,5 +1,5 @@
 x-app: &default-app
-  image: node:18.12.0
+  image: node:18.12.1
   user: node
   working_dir: /app
   depends_on:
